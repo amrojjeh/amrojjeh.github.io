@@ -56,5 +56,6 @@ var Projects =
 	]
 }
 
+// Removed software category
 var SelectedCategory = "Computer Science";
 var projectsElement = document.getElementById("projects");
