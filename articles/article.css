@@ -92,3 +92,39 @@ article p
 		visibility: hidden;
 	}
 }
+
+@media screen and (max-device-width: 750px)
+{
+	article
+	{
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	article p
+	{
+		font-size: 14px;
+	}
+
+	article h1
+	{
+		font-size: 30px;
+	}
+
+	article h2
+	{
+		font-size: 20px;
+	}
+
+	article img
+	{
+		max-width: 60%;
+	}
+
+	header a
+	{
+		position: relative;
+		margin-bottom: 50px;
+	}
+}
