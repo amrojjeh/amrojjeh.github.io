@@ -10,8 +10,8 @@ var Articles =
 	{
 		"Name": "Everyone Learns Differently!!",
 		"Description": "If you’re a teacher, or even a student, you’ve likely heard this a million times. Everyone learns differently! You have visual learners, kinesthetic learners, aural learners, and some reader and writer type learners. A student can even be a mix of all the above! Taste all the flavors, so much diversity! Aren’t they all so yummy? Oh and that’s just VARK, but there are like 70 different schemes out there! I’m getting excited!",
-		"ImagePath": "https://miro.medium.com/max/5000/1*cBZIvNn3N8tXJl2E0CQTmg.png",
-		"Link": "https://medium.com/age-of-awareness/everyone-learns-differently-fb72975ca3f2",
+		"ImagePath": "articles/learn_differently/cover.png",
+		"Link": "articles/learn_differently/index.html",
 		"Date": "May 2021",
 	},
 	{
