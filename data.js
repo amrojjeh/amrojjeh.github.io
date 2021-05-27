@@ -44,8 +44,8 @@ var Articles =
 	{
 		"Name": "Recursion",
 		"Description": "A simple explanation of recursion",
-		"ImagePath": "https://miro.medium.com/max/2400/0*Q46XI8JJjmOHMdL7",
-		"Link": "https://amrojjeh.medium.com/recursion-932aeac3f669?sk=b87ed7083f5daebbc91d8f1793ffe80b",
+		"ImagePath": "articles/recursion/cover.png",
+		"Link": "articles/recursion/index.html",
 		"Date": "January 2021"
 	},
 	{

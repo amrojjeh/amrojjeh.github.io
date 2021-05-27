@@ -67,6 +67,29 @@ article figcaption
 	font-weight: 300;
 }
 
+article blockquote
+{
+	position: relative;
+	font-size: 21px;
+}
+
+article blockquote::before
+{
+	content: "";
+	height: 100%;
+	width: 2px;
+	background-color: white;
+	position: absolute;
+	bottom: 0;
+	left: -2%;
+	display: block;
+}
+
+article code, article code.language-java
+{
+	font-size: 18px;
+}
+
 @media print
 {
 	html, article
@@ -110,6 +133,21 @@ article figcaption
 	article figcaption
 	{
 		color: rgba(17, 17, 17, 1);
+	}
+	
+	article blockquote
+	{
+		font-size: 14px;
+	}
+
+	article blockquote::before
+	{
+		background-color: black;
+	}
+
+	article code, article code.language-java
+	{
+		font-size: 14px;
 	}
 }
 
