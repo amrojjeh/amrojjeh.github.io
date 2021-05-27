@@ -15,6 +15,13 @@ var Articles =
 		"Date": "May 2021",
 	},
 	{
+		"Name": "Shellfish",
+		"Description": "They say the truth is blunt. But what does that have to do with Shellfish?",
+		"ImagePath": "articles/shellfish/cover.png",
+		"Link": "articles/shellfish/index.html",
+		"Date": "April 2021",
+	},
+	{
 		"Name": "The Problem with AP CS",
 		"Description": "And other introductory classes",
 		"ImagePath": "https://miro.medium.com/max/1000/1*RfIRzExAjj1i2FOSPQ69ZA.png",
@@ -27,13 +34,6 @@ var Articles =
 		"ImagePath": "https://miro.medium.com/max/2400/1*pfVYXitb6stSpP5cfdF5eA.png",
 		"Link": "https://medium.com/codex/classes-b9027a594ba9",
 		"Date": "May 2021"
-	},
-	{
-		"Name": "Shellfish",
-		"Description": "They say the truth is blunt. But what does that have to do with Shellfish?",
-		"ImagePath": "https://miro.medium.com/max/700/1*yh-b4shliNF2cNDo5L980A.png",
-		"Link": "https://amrojjeh.medium.com/shellfish-c1b0d40ffa02",
-		"Date": "April 2021",
 	},
 	{
 		"Name": "An Open Letter To Medium",
