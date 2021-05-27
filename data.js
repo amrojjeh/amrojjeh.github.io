@@ -24,8 +24,8 @@ var Articles =
 	{
 		"Name": "The Problem with AP CS",
 		"Description": "And other introductory classes",
-		"ImagePath": "https://miro.medium.com/max/1000/1*RfIRzExAjj1i2FOSPQ69ZA.png",
-		"Link": "https://medium.com/codex/the-problem-with-ap-cs-ad095f54960b",
+		"ImagePath": "articles/apcs/cover.png",
+		"Link": "articles/apcs/index.html",
 		"Date": "February 2021",
 	},
 	{
