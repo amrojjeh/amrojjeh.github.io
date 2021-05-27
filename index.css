@@ -64,7 +64,6 @@ body
 	width: 570px;
 }
 
-
 footer
 {
 	position: relative;
@@ -98,12 +97,6 @@ footer img
 {
 	height: 5vh;
 	border-radius: 20px;
-}
-
-a 
-{
-	text-decoration: none;
-	color: #FFC114;;
 }
 
 @media screen and (max-device-width: 750px)

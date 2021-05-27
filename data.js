@@ -1,10 +1,10 @@
-var Projects = 
+var Articles = 
 [
 	{
 		"Name": "Understanding Long Division (For Teachers)",
 		"Description": "Most people who have yet to grow accustomed to a calculator, likely know how to divide any two numbers to obtain the decimal quotient. However, rarely it seems that the algorithm is actually explained, which means that the procedure is most often memorized without a sense of intuition. The hope of this article will be to introduce the intuition, and to finally demystify the mysteries of division.",
-		"ImagePath": "https://miro.medium.com/max/550/1*6Ey13T6t7T_SWI4DUXB66Q.png",
-		"Link": "https://medium.com/age-of-awareness/understanding-long-division-for-teachers-c00a982cc93c",
+		"ImagePath": "articles/long_division/fourth.png",
+		"Link": "articles/long_division/index.html",
 		"Date": "May 2021",
 	},
 	{
@@ -63,6 +63,3 @@ var Projects =
 		"Date": "November 2019"
 	},
 ]
-
-// Removed software category
-var SelectedCategory = "Computer Science";
