@@ -2,13 +2,13 @@ var Articles =
 [
 	{
 		"Name": "Understanding Long Division (For Teachers)",
-		"Description": "Most people who have yet to grow accustomed to a calculator, likely know how to divide any two numbers to obtain the decimal quotient. However, rarely it seems that the algorithm is actually explained, which means that the procedure is most often memorized without a sense of intuition. The hope of this article will be to introduce the intuition, and to finally demystify the mysteries of division.",
+		"Description": "Looking at division in a new way.",
 		"Link": "long_division",
 		"Date": "May 2021",
 	},
 	{
 		"Name": "Everyone Learns Differently!!",
-		"Description": "If you’re a teacher, or even a student, you’ve likely heard this a million times. Everyone learns differently! You have visual learners, kinesthetic learners, aural learners, and some reader and writer type learners. A student can even be a mix of all the above! Taste all the flavors, so much diversity! Aren’t they all so yummy? Oh and that’s just VARK, but there are like 70 different schemes out there! I’m getting excited!",
+		"Description": "Right??",
 		"Link": "learn_differently",
 		"Date": "May 2021",
 	},
