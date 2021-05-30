@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<title>Amr Ojjeh</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../base.css">
+<link rel="stylesheet" media="screen" type="text/css" href="../monokai.css">
+<link rel="stylesheet" media="print" type="text/css" href="../friendly.css">
+<link rel='stylesheet' type='text/css' href='../article.css'>
+</head>
+<body>
+<header>
+<a class="underline" href="../../index.html">←</a>
+</header>
+<article>
+<p><img alt="" src="cover.png"></p>
+<h1>Classes</h1>
+<p><strong>I highly recommend you as the reader to write the code shown here. Don’t copy and paste. Write everything word for word. You’re encouraged to experiment.</strong></p>
+<p>The idea behind classes should be intuitive, as they simply allow us to group related data together. However, to prove their usefulness through example, let me introduce to you a program. The program is simple. It adds points.</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span>
+<span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// (2, 3)</span>
+        <span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">y1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+        <span class="c1">// (5, 0)</span>
+        <span class="kt">double</span> <span class="n">x2</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="c1">// p1 + p2</span>
+        <span class="kt">double</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">;</span>
+        <span class="kt">double</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="p">;</span>
+
+        <span class="n">String</span> <span class="n">output</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%.2f, %.2f) + (%.2f, %.2f) = (%.2f, %.2f)&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+        <span class="c1">// Output:</span>
+        <span class="c1">// (2.00, 3.00) + (5.00, 0.00) = (7.00, 3.00)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The code works fine, however, the issues that exist are not regarding the functionality of the code. Rather, it regards the scalability of the code. If we want to display another result where we subtract two points, here’s how’d we go about that:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// (2, 3)</span>
+    <span class="kt">double</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+    <span class="c1">// (5, 0)</span>
+    <span class="kt">double</span> <span class="n">x2</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// p1 + p2</span>
+    <span class="kt">double</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">+</span> <span class="n">y2</span><span class="p">;</span>
+
+    <span class="c1">// (20, 30)</span>
+    <span class="kt">double</span> <span class="n">x4</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y4</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+
+    <span class="c1">// (24, 30)</span>
+    <span class="kt">double</span> <span class="n">x5</span> <span class="o">=</span> <span class="mi">24</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y5</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+
+    <span class="c1">// p5 - p4</span>
+    <span class="kt">double</span> <span class="n">x6</span> <span class="o">=</span> <span class="n">x5</span> <span class="o">-</span> <span class="n">x4</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y6</span> <span class="o">=</span> <span class="n">y5</span> <span class="o">-</span> <span class="n">y4</span><span class="p">;</span>
+
+    <span class="n">String</span> <span class="n">output</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%.2f, %.2f) + (%.2f, %.2f) = (%.2f, %.2f)&quot;</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">);</span>
+    <span class="n">String</span> <span class="n">output2</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%.2f, %.2f) - (%.2f, %.2f) = (%.2f, %.2f)&quot;</span><span class="p">,</span> <span class="n">x5</span><span class="p">,</span> <span class="n">y5</span><span class="p">,</span> <span class="n">x4</span><span class="p">,</span> <span class="n">y4</span><span class="p">,</span> <span class="n">x6</span><span class="p">,</span> <span class="n">y6</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">output2</span><span class="p">);</span>
+    <span class="c1">// Output:</span>
+    <span class="c1">// (2.00, 3.00) + (5.00, 0.00) = (7.00, 3.00)</span>
+    <span class="c1">// (24.00, 30.00) - (20.00, 30.00) = (4.00, 0.00)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>You’ll notice that messing up this code can be really easy. Seeing how we have 6 different points, it’s incredibly easy to add the wrong points. Also, note that if we choose to represent the points as vectors, more complicated operations, such as scalar multiplications and normalization, would be difficult to interpret just based on the code, and requires the memorization of many formulas.</p>
+<p>Other problems include printing a point. Outputting a point takes up almost the entire width of my screen, and if I were to update how I print each point, I’d have to update two different locations. It may not look like much with a codebase of fewer than hundred lines, but it’s common to have codebases that are more than a thousand lines of code, and updating every instance where a point could be printed would be a hassle of a task.</p>
+<p>You might suggest we use methods to fix both of these problems. However, Java does not support returning more than one value.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// If we were to write an add_points method,</span>
+<span class="c1">// currently, we can only return an integer.</span>
+<span class="c1">// This is insufficient, as a point requires two integers.</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add_points</span><span class="p">(</span><span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Making a Point class</h2>
+<p>Making a point class is rather straightforward. Here’s the simplest version:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Note: This would be outside of the Main class but within the same file.</span>
+<span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>There you have it. Our new code would look like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// (2, 3)</span>
+    <span class="n">Point</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span> <span class="c1">// Creating a new &quot;Point&quot;</span>
+    <span class="n">p1</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">p1</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+    <span class="c1">// (5, 0)</span>
+    <span class="n">Point</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span> <span class="c1">// Creating another &quot;Point&quot;, different from p1</span>
+    <span class="n">p2</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="n">p2</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// p1 + p2</span>
+    <span class="n">Point</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">add_points</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+
+    <span class="c1">// For brevity, the subtraction part was removed</span>
+
+    <span class="n">String</span> <span class="n">output</span> <span class="o">=</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%.2f, %.2f) + (%.2f, %.2f) = (%.2f, %.2f)&quot;</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="na">x</span><span class="p">,</span> <span class="n">p1</span><span class="p">.</span><span class="na">y</span><span class="p">,</span> <span class="n">p2</span><span class="p">.</span><span class="na">x</span><span class="p">,</span> <span class="n">p2</span><span class="p">.</span><span class="na">y</span><span class="p">,</span> <span class="n">p3</span><span class="p">.</span><span class="na">x</span><span class="p">,</span> <span class="n">p3</span><span class="p">.</span><span class="na">y</span><span class="p">);</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+    <span class="c1">// Output:</span>
+    <span class="c1">// (2.00, 3.00) + (5.00, 0.00) = (7.00, 3.00)</span>
+<span class="p">}</span>
+
+<span class="c1">// Our add_points method still returns one value,</span>
+<span class="c1">// however, that value contains the two integers we want</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Point</span> <span class="nf">add_points</span><span class="p">(</span><span class="n">Point</span> <span class="n">p1</span><span class="p">,</span> <span class="n">Point</span> <span class="n">p2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span> <span class="c1">// Creating a new &quot;Point&quot;</span>
+    <span class="c1">// Adding the two points and assiging to the newly created point</span>
+    <span class="n">p</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">p2</span><span class="p">.</span><span class="na">x</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">p2</span><span class="p">.</span><span class="na">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// Note that the old points are NOT modified.</span>
+    <span class="c1">// A new point is created as a result of this operation.</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>All we have done is group related data together under a common name. We do this by first creating a <code>Point</code> class, and then we create <code>Point</code> objects, which follow the “blueprint” of the <code>Point</code> class. This is similar to how we create new <code>int</code> or <code>double</code> variables, with the difference being that our type is able to hold more values and methods (we’ll get to that).</p>
+<p><img alt="" src="first.png"></p>
+<p>This can be better visualized as such. Notice how every <code>Point</code> object has the fields <code>x</code> and <code>y</code>. This is because we defined the structure of a <code>Point</code> object to have those fields when we defined <code>class Point</code>. We can then modify an object’s field by using the <code>.</code> (dot) operator. So, <code>p2.x = 5</code> changes the <code>x</code> variable in the <code>p2</code> object to 5, instead of the default 0.</p>
+<p>To create a new <code>Point</code> object for us to modify, we use the <code>new</code> operator, followed by the type and parenthesis, as if we are invoking a method. The reasoning for this will be covered later. For now, take <code>new Point()</code> as how you create a new <code>Point</code> object.</p>
+<h2>Making Code Easier</h2>
+<p>Notice that we have three problems. <code>add_points</code> for one, is in an inappropriate place. You can imagine when you're dealing with lots of data, and each group of data has its own group of methods related, throwing all the methods in a single file can become counter-productive. The second problem is that constructing point objects is tedious, as we need to assign every value manually. For classes that are more sophisticated, this can become troublesome quickly. The other problem is that outputting each point is not only time-consuming, but if we want to change how we print a point, we have to look through every needle in the haystack, and in a large program, that can destroy the momentum of the project.</p>
+<h2>The First Problem, Methods</h2>
+<p>We have several ways of fixing the first problem, all of which are rather simple. We can first start by adding a static method to point as such:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="c1">// This is the same method we&#39;ve written before, but now in the Point class.</span>
+    <span class="c1">// That means to use the method, you have to first say the class it&#39;s in,</span>
+    <span class="c1">// then the method name. So: &quot;Point.add_points(p1, p2)&quot;</span>
+
+    <span class="c1">// Note the &quot;static&quot; keyword. For now, take it for granted.</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Point</span> <span class="nf">add_points</span><span class="p">(</span><span class="n">Point</span> <span class="n">p1</span><span class="p">,</span> <span class="n">Point</span> <span class="n">p2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">p2</span><span class="p">.</span><span class="na">x</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">p2</span><span class="p">.</span><span class="na">y</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>All we did is displace the method from the <code>Main</code> class to the <code>Point</code> class. This means, to invoke the method, we do the following:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Point</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">Point</span><span class="p">.</span><span class="na">add_points</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Very straightforward. We could do even better, however. Notice that the first parameter of the method is a <code>Point</code>. This is a good indicator that the method should not be static, however, as you gain experience, you’ll know which methods should and shouldn’t be static. But know that all methods can be either or, and it’s simply a matter of design, not technicality, whether a method should be static. For the sake of demonstration, however, let’s turn the method into an instance method. Here's the code:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="c1">// Again, this is the same method as before, although</span>
+    <span class="c1">// we changed the name from &quot;add_points&quot; to &quot;add&quot; for the sake of</span>
+    <span class="c1">// simplicity.</span>
+
+    <span class="c1">// Notice, we no longer have static</span>
+    <span class="c1">// Because of that, however, we now have &quot;this&quot;</span>
+    <span class="c1">// This is the primary distinction between static and non-static methods</span>
+
+    <span class="c1">// And to use the method:</span>
+    <span class="c1">// p.add(p2)</span>
+    <span class="c1">// p would be a Point *object*, as would p2.</span>
+    <span class="c1">// Remark that we&#39;re not writing Point.add, instead,</span>
+    <span class="c1">// we&#39;re using the object name</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">add</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="na">x</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="na">y</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>And to use the method:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Point</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+<span class="c1">//         ^</span>
+<span class="c1">//    p1 is &quot;this&quot; because it comes before the dot</span>
+</code></pre></div>
+
+<p>All we effectively did is bring the focus on <code>p1</code>. <code>this</code> refers to the main object, which is the one that precedes the <code>.</code> (dot), in this case, <code>p1</code>. Using the same pattern, we can add more methods and quickly make complex operations:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">add</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="na">x</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">other</span><span class="p">.</span><span class="na">y</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">negate</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="na">x</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="na">y</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Point</span> <span class="nf">subtract</span><span class="p">(</span><span class="n">Point</span> <span class="n">other</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Notice how we&#39;re combining the methods made before to make the code</span>
+        <span class="c1">// simple and easy to understand</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="na">negate</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>And again, to use these methods:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Point</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">p2</span><span class="p">).</span><span class="na">negate</span><span class="p">();</span>
+<span class="c1">// We can &quot;chain&quot; methods this way because each method</span>
+<span class="c1">// returns a new point.</span>
+<span class="c1">// So, p1 is &quot;this&quot; when calling add, but when calling negate,</span>
+<span class="c1">// &quot;this&quot; would be the object that p1.add returns</span>
+</code></pre></div>
+
+<h2>The Second Problem, Constructors</h2>
+<p>Just as before, this is a very simple problem to solve. Here’s the code:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="c1">// The default constructor. If we define our own constructor without defining</span>
+    <span class="c1">// one that takes 0 parameters, then &quot;new Point()&quot; would result in an error</span>
+    <span class="c1">// as the constructor won&#39;t exist. The default constructor is assumed if we</span>
+    <span class="c1">// don&#39;t define our own, hence the name.</span>
+    <span class="kd">public</span> <span class="nf">Point</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="c1">// Since the constructor only declares the variables x and y, it will use</span>
+      <span class="c1">// the default value for doubles, which is 0, unless we change them.</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Our own constructor, which takes an x and y and immediately assigns them</span>
+    <span class="c1">// to the instance x and y. Since the instance x and y and the parameters</span>
+    <span class="c1">// have the same name, we refer to the instance as &quot;this&quot; and the parameters</span>
+    <span class="c1">// regularly.</span>
+    <span class="kd">public</span> <span class="nf">Point</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Blah blah blah...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Notice that constructors don’t have a return type, and they have the same name as the class. The two facts are necessary to have to define a constructor. If the name doesn’t match, there will be an error, and if it has a return type, it’ll be a method and not a constructor.</p>
+<p>To use the constructors:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// To use the default constructor (same as before)</span>
+<span class="n">Point</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">();</span>
+<span class="n">p1</span><span class="p">.</span><span class="na">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">p1</span><span class="p">.</span><span class="na">y</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="c1">// To use the newly defined constructor</span>
+<span class="n">Point</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Both do the same thing, but the latter is much easier to read and would be the standard way of constructing a new class.</p>
+<h2>The Third Problem, toString</h2>
+<p>We’re close to wrapping this up! But I thought I’d show you one more benefit by teasing what our next meeting will be out, inheritance. I won’t get into it here too much, instead, I’ll just show you the code and you can figure out how it works on your own.</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
+<span class="p">{</span>
+    <span class="c1">// Blah blah blah...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;(%.2f, %.2f)&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">y</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>And to use the method:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">String</span> <span class="n">output</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="s">&quot; + &quot;</span> <span class="o">+</span> <span class="n">p2</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span> <span class="n">p3</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Isn’t that so much better?</p>
+<h2>Conclusion</h2>
+<p>There is <strong>a lot</strong> I have not brought up in this article. The truth is, is that there is a ton of information to learn regarding classes, and you’ll likely still be learning about them for the next year. Concepts such as aliasing, inheritance, mutability, access modifiers, generics, and most importantly, the skill to design your classes so that they’re intuitive and easy to learn.</p>
+<p>The reason why I’m not including these is that I’m not making a full Java course, which would take months of work. I simply aim to get you started, because it’s when you develop your projects, no matter how amateur they are, is when you really learn and embed this information. It’s also when you’ll remember what aliasing is because you’ve made the same error 30 times, or when you should put things into classes because you realize that what you’re looking at is a bunch of spaghetti code. It’s also when you start designing decently sized applications that you begin to learn many of the principles that drive <strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming, and what OOP even is.</p>
+<p>With that, I hope you’ve had fun with the lesson, and as always, feel free to ask any questions!</p></article>
+</body>
+</html>

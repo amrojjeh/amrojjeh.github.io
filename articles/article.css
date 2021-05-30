@@ -23,12 +23,24 @@ article
 {
 	position: relative;
 	font-family: "Open Sans", sans-serif;
-	margin: 0;
+	margin: 3%;
 	padding: 0;
 	margin-left: auto;
 	margin-right: auto;
 	width: 50%;
 	color: white;
+}
+
+article table
+{
+	border-collapse: collapse;
+}
+
+td, th
+{
+	border: 1px solid #999;
+	padding: 0.5rem;
+	text-align: center;
 }
 
 article img
@@ -85,9 +97,14 @@ article blockquote::before
 	display: block;
 }
 
-article code, article code.language-java
+article code
 {
 	font-size: 18px;
+}
+
+article p code
+{
+	background-color: #3F3F3F;
 }
 
 @media print
@@ -145,9 +162,14 @@ article code, article code.language-java
 		background-color: black;
 	}
 
-	article code, article code.language-java
+	article code
 	{
 		font-size: 14px;
+	}
+
+	article p code
+	{
+		background-color: #EEE;
 	}
 }
 

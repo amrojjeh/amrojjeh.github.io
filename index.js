@@ -16,18 +16,14 @@ function loadProjects(parent) // Loads projects from Projects and displays them 
 
 function addProject(project, parent) // Adds a project and displays
 {
-	var html = generateHTML(project.Name, project.Description, project.ImagePath, project.Link, project.Date);
+	var html = generateHTML(project.Name, project.Description, project.Link, project.Date);
 	parent.innerHTML += html;
 }
 
-function generateHTML(name, description, imagePath, link, date) // Generates the HTML of a project
+function generateHTML(name, description, link, date) // Generates the HTML of a project
 {
-	var header;
-	if (imagePath == "None")
-		header = '<div><a href="' + link + '"></a>';
-	else
-		header = '<div><a href="' + link + '"><img src="' + imagePath + '"></a>';
-	var h1 = '<h1><a class="underline" href="' + link + '">' + name + '</a></h1>';
+	var header = '<div><a href="articles/' + link + '/index.html"><img src="articles/' + link + '/cover.png' + '"></a>';
+	var h1 = '<h1><a class="underline" href="articles/' + link + '/index.html">' + name + '</a></h1>';
 	var date = "<i>Last updated: " + date + "</i>"
 	var p = "<p>" + description + "</p>";
 	return header + h1 + date + p + "</div>";
