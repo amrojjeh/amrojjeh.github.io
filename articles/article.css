@@ -202,6 +202,11 @@ article p code
 		max-width: 60%;
 	}
 
+	article code
+	{
+		font-size: 12px;
+	}
+
 	header a
 	{
 		position: relative;
