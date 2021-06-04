@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'>
+<head><meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <title>LSC CS</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta content="1024 or 1000?" property="og:title">
+<meta content="There is a misunderstanding that occurs much too often between developers. Is a killobit 1024 or 1000 bits?" property="og:description">
+<meta content="http://amrojjeh.github.io/articles/1024 or 1000/index.html" property="og:url">
+<meta content="http://amrojjeh.github.io/articles/1024 or 1000/cover.png" property="og:image">
+<meta content="#32CCFF" property="theme-color">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../../base.css">
 <link rel="stylesheet" media="screen" type="text/css" href="../monokai.css">
@@ -15,8 +19,10 @@
 <header>
 <a class="underline" href="../../index.html">←</a>
 </header>
-<article><p><img alt="" src="cover.png"></p>
-<h1>1024 or 1000?</h1>
+
+<article>
+<p><img alt="" src="cover.png"></p>
+<h1 id="1024-or-1000">1024 or 1000?</h1>
 <p>There is a misunderstanding that occurs much too often between developers. Is a kilobit 1024 or 1000 bits?</p>
 <p>Officially, a kilobit is a thousand bits. A thousand bits, that was the number that most if not all committees agree on, including the IEC and IEEE. So question settled, right?</p>
 <p>Not really. That’s because for a very long time, a kilobit has been referred to as 1024 bits. Long enough for it cause confusion, but not long enough for it to become an old trivia fact.</p>
@@ -27,6 +33,7 @@
 <p>Well let’s take a look at a practical example. Let’s say I have a 16 bit pointer, meaning I can reference…65.536kb of memory? Wait, something isn’t right. Why is it a fraction? And it’s surprisingly close to the standard 64kb of mem — oh, I get it.</p>
 <p>64kb is a lie. It’s 64kib. It’s exactly 64kib. How does it round so well? It’s because 1024 is 2¹⁰! How could I have been so dumb? 1000 is not a power of two, so of course you won’t be able to divide a power of two by it and expect a normal answer. See, look:</p>
 <p>2¹⁶/2¹⁰ = 2⁶. It’s just subtraction! It’s beautiful!</p>
-<p>Oh yea, right. <em>Ahm ahm</em>. Kib for the win guys, right?</p></article>
+<p>Oh yea, right. <em>Ahm ahm</em>. Kib for the win guys, right?</p>
+</article>
 </body>
 </html>

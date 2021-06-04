@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'>
+<head><meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <title>LSC CS</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta content="Classes" property="og:title">
+<meta content="And Why We Need Them" property="og:description">
+<meta content="http://amrojjeh.github.io/articles/classes/index.html" property="og:url">
+<meta content="http://amrojjeh.github.io/articles/classes/cover.png" property="og:image">
+<meta content="#32CCFF" property="theme-color">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../../base.css">
 <link rel="stylesheet" media="screen" type="text/css" href="../monokai.css">
@@ -15,8 +19,10 @@
 <header>
 <a class="underline" href="../../index.html">←</a>
 </header>
-<article><p><img alt="" src="cover.png"></p>
-<h1>Classes</h1>
+
+<article>
+<p><img alt="" src="cover.png"></p>
+<h1 id="classes">Classes</h1>
 <p><strong>I highly recommend you as the reader to write the code shown here. Don’t copy and paste. Write everything word for word. You’re encouraged to experiment.</strong></p>
 <p>The idea behind classes should be intuitive, as they simply allow us to group related data together. However, to prove their usefulness through example, let me introduce to you a program. The program is simple. It adds points.</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span>
@@ -89,7 +95,7 @@
 <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">add_points</span><span class="p">(</span><span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y2</span><span class="p">)</span>
 </code></pre></div>
 
-<h2>Making a Point class</h2>
+<h2 id="making-a-point-class">Making a Point class</h2>
 <p>Making a point class is rather straightforward. Here’s the simplest version:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1">// Note: This would be outside of the Main class but within the same file.</span>
 <span class="kd">class</span> <span class="nc">Point</span>
@@ -140,9 +146,9 @@
 <p><img alt="" src="first.png"></p>
 <p>This can be better visualized as such. Notice how every <code>Point</code> object has the fields <code>x</code> and <code>y</code>. This is because we defined the structure of a <code>Point</code> object to have those fields when we defined <code>class Point</code>. We can then modify an object’s field by using the <code>.</code> (dot) operator. So, <code>p2.x = 5</code> changes the <code>x</code> variable in the <code>p2</code> object to 5, instead of the default 0.</p>
 <p>To create a new <code>Point</code> object for us to modify, we use the <code>new</code> operator, followed by the type and parenthesis, as if we are invoking a method. The reasoning for this will be covered later. For now, take <code>new Point()</code> as how you create a new <code>Point</code> object.</p>
-<h2>Making Code Easier</h2>
+<h2 id="making-code-easier">Making Code Easier</h2>
 <p>Notice that we have three problems. <code>add_points</code> for one, is in an inappropriate place. You can imagine when you're dealing with lots of data, and each group of data has its own group of methods related, throwing all the methods in a single file can become counter-productive. The second problem is that constructing point objects is tedious, as we need to assign every value manually. For classes that are more sophisticated, this can become troublesome quickly. The other problem is that outputting each point is not only time-consuming, but if we want to change how we print a point, we have to look through every needle in the haystack, and in a large program, that can destroy the momentum of the project.</p>
-<h2>The First Problem, Methods</h2>
+<h2 id="the-first-problem-methods">The First Problem, Methods</h2>
 <p>We have several ways of fixing the first problem, all of which are rather simple. We can first start by adding a static method to point as such:</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
 <span class="p">{</span>
@@ -242,7 +248,7 @@
 <span class="c1">// &quot;this&quot; would be the object that p1.add returns</span>
 </code></pre></div>
 
-<h2>The Second Problem, Constructors</h2>
+<h2 id="the-second-problem-constructors">The Second Problem, Constructors</h2>
 <p>Just as before, this is a very simple problem to solve. Here’s the code:</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
 <span class="p">{</span>
@@ -285,7 +291,7 @@
 </code></pre></div>
 
 <p>Both do the same thing, but the latter is much easier to read and would be the standard way of constructing a new class.</p>
-<h2>The Third Problem, toString</h2>
+<h2 id="the-third-problem-tostring">The Third Problem, toString</h2>
 <p>We’re close to wrapping this up! But I thought I’d show you one more benefit by teasing what our next meeting will be out, inheritance. I won’t get into it here too much, instead, I’ll just show you the code and you can figure out how it works on your own.</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nc">Point</span>
 <span class="p">{</span>
@@ -305,9 +311,10 @@
 </code></pre></div>
 
 <p>Isn’t that so much better?</p>
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>There is <strong>a lot</strong> I have not brought up in this article. The truth is, is that there is a ton of information to learn regarding classes, and you’ll likely still be learning about them for the next year. Concepts such as aliasing, inheritance, mutability, access modifiers, generics, and most importantly, the skill to design your classes so that they’re intuitive and easy to learn.</p>
 <p>The reason why I’m not including these is that I’m not making a full Java course, which would take months of work. I simply aim to get you started, because it’s when you develop your projects, no matter how amateur they are, is when you really learn and embed this information. It’s also when you’ll remember what aliasing is because you’ve made the same error 30 times, or when you should put things into classes because you realize that what you’re looking at is a bunch of spaghetti code. It’s also when you start designing decently sized applications that you begin to learn many of the principles that drive <strong>O</strong>bject <strong>O</strong>riented <strong>P</strong>rogramming, and what OOP even is.</p>
-<p>With that, I hope you’ve had fun with the lesson, and as always, feel free to ask any questions!</p></article>
+<p>With that, I hope you’ve had fun with the lesson, and as always, feel free to ask any questions!</p>
+</article>
 </body>
 </html>
