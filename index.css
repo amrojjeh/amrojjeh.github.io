@@ -1,184 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Lateef&display=swap');
-
-[lang="ar"] {
-	font-family: "Lateef", serif;
-	font-size: 1.2em;
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	font-family: inherit;
 }
 
-* {
+html, body {
+	height: 100svh;
 	padding: 0;
 	margin: 0;
-}
-
-html {
-	min-height: 100vh;
-	width: 100%;
-	background: linear-gradient(to right, #444, #222, #444);
-	color: white;
-	font-family: "Ubuntu Mono", monospace;
-}
-
-body {
-	box-sizing: border-box;
-	width: 70%;
-	min-height: 100vh;
-	margin: 0 auto;
 	background-color: #111;
-	padding-inline: 2rem;
-	padding-bottom: .1rem;
+	color: #0f0;
 }
 
-h1 {
-	font-size: 7rem;
+div {
+	--size: 3rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+
+	font-family: "VT323", monospace;
+	font-size: var(--size);
+}
+
+h1, h2, h3 {
 	text-align: center;
 }
 
-h2 {
-	font-size: 5rem;
-	margin-top: 2rem;
-	margin-bottom: 1rem;
+#carret {
+	display: inline-block;
+	width: 2rem;
+	height: 4rem;
+	background-color: #0f0;
+	transition: opacity .1s;
 }
 
-h3 {
-	font-size: 3rem;
-	margin-top: 1rem;
-	margin-bottom: .5rem;
-}
-
-a {
-	text-decoration: none;
-	color: white;
-	transition: color .2s;
-}
-
-a[data-hadith]::after {
-	content: "hadith";
-	color: #95bcbc;
-	font-size: .5em;
-	padding-left: .5em;
-	text-decoration: none;
-}
-
-a[data-amazon]::after {
-	content: "amazon";
-	color: #ff9a00;
-	font-size: .5em;
-	padding-left: .5em;
-	text-decoration: none;
-}
-
-a[data-youtube]::after {
-	content: "youtube";
-	color: #f00;
-	font-size: .5em;
-	padding-left: .5em;
-	text-decoration: none;
-}
-
-a[data-quran]::after {
-	content: "quran";
-	color: #b99a54;
-	font-size: .5em;
-	padding-left: .5em;
-	text-decoration: none;
-}
-
-a[data-pdf]::after {
-	content: "pdf";
-	color: #e00;
-	font-size: .5em;
-	padding-left: .5em;
-	text-decoration: none;
-}
-
-a[data-amazon]:hover {
-	color: #ff9a00;
-}
-
-a[data-article]:hover {
-	color: #a3e3fa;
-}
-
-a[data-youtube]:hover {
-	color: #f00;
-}
-
-a[data-quran]:hover {
-	color: #b99a54;
-}
-
-a[data-pdf]:hover {
-	color: #e00;
-}
-
-a[data-hadith]:hover {
-	color: #95bcbc;
-}
-
-h3 + ul, h3 + ol {
-	font-size: 2rem;
-	padding-left: 2rem;
-}
-
-h3 + ul > li::marker, h3 + ol > li::marker {
-	content: "";
-}
-
-li[data-date]::after {
-	content: attr(data-date);
-	color: #bbb;
-	padding-left: 1rem;
-	font-size: .6em;
-}
-
-time {
-	color: #bbb;
-}
-
-p {
-	font-size: 1.5rem;
-	margin-bottom: 1.5rem;
-}
-
-hr {
-	margin: 1em 0;
-}
-
-p > a {
-	text-decoration: underline;
-	text-decoration-color: currentColor;
-}
-
-sup>a {
-	color: skyblue;
-}
-
-blockquote p {
-  padding: 15px;
-  background: #222;
-  border-radius: 5px;
-  color: #b99a54;
-  margin-bottom: .1em;
-}
-
-blockquote footer {
-	margin: .5em;
-}
-
-blockquote {
-	margin: 1em 0.5em;
-}
-
-p + ol, p + ul {
-	font-size: 1.5rem;
-	margin-left: 4rem;
-}
-
-dd {
-	margin-left: 1em;
-	font-size: .9em;
-}
-
-ul, ol {
-	margin-bottom: 1rem;
+.hidden {
+	opacity: 0;
 }
