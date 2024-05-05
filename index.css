@@ -23,6 +23,7 @@ div {
 
 	font-family: "VT323", monospace;
 	font-size: var(--size);
+	text-shadow: 1px 1px 4px #0f0;
 }
 
 h1, h2, h3 {
@@ -35,6 +36,7 @@ h1, h2, h3 {
 	height: 4rem;
 	background-color: #0f0;
 	transition: opacity .1s;
+	box-shadow: 1px 1px 4px #0f0;
 }
 
 .hidden {
