@@ -22,6 +22,9 @@ const beep = new Audio("beep.wav");
 document.body.addEventListener("click", init);
 document.body.addEventListener("keypress", init);
 
+var blinkTimeout = 0;
+var typeTimeout = 0;
+
 h2.classList.add("hidden");
 h3.classList.add("hidden");
 
@@ -31,12 +34,12 @@ function blink() {
   const carretEl = document.querySelector("#carret");
   if (carretEl) {
     carretEl.classList.toggle("hidden");
-    setTimeout(blink, 500);
+    blinkTimeout = setTimeout(blink, 500);
   }
 }
 
 function carret() {
-  return `<span id="carret"></span>`
+  return `<span id="carret"></span>`;
 }
 
 function type() {
@@ -48,11 +51,10 @@ function type() {
     }
     myNameI += 1;
     if (myNameI != myName.length) {
-      setTimeout(type, 200);
+      typeTimeout = setTimeout(type, 200);
     } else {
       beep.addEventListener("ended", function() {
-        h2.classList.remove("hidden");
-        h3.classList.remove("hidden");
+        done();
         myNameEl.removeChild(carretEl);
       });
       beep.play();
@@ -62,10 +64,21 @@ function type() {
 }
 
 function init() {
-  document.body.removeEventListener("click", init);
-  document.body.removeEventListener("keypress", init);
-  setTimeout(blink, 500);
+  if (init.played) {
+    myNameEl.innerText = myName.replace("\u200b", "");
+    done();
+    return;
+  }
+  init.played = true;
+  blinkTimeout = setTimeout(blink, 500);
   myNameEl.innerHTML = carret();
-  setTimeout(type, 500);
+  typeTimeout = setTimeout(type, 500);
+}
+
+function done() {
+  h2.classList.remove("hidden");
+  h3.classList.remove("hidden");
+  clearTimeout(typeTimeout);
+  clearTimeout(blinkTimeout);
 }
 
