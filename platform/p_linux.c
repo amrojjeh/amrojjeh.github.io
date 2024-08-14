@@ -89,8 +89,8 @@ p_string *P_Mem_ExpandString(p_string str) {
 }
 
 void P_Mem_PopString() {
-  allocator.body_ptr = allocator.table_ptr->buffer;
   allocator.table_ptr--;
+  allocator.body_ptr = allocator.table_ptr->buffer;
 }
 
 p_slice P_IO_ListDirectory(p_string directory) {
