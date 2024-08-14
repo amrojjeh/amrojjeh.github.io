@@ -1,10 +1,12 @@
 #include "platform/platform.h"
 
 int main() {
-  Platform_Mem_Init(MB(2));
+  P_Mem_Init(MB(2));
 
-  string content = Platform_IO_ListDirectory(Platform_String_Create("."));
-  Platform_IO_PrintString(content);
-
+  p_slice entries = P_IO_ListDirectory(P_String_Create("."));
+  for (size_t x = 0; x < entries.length; ++x) {
+    P_IO_PrintString(entries.base[x]);
+    P_IO_PrintString(P_String_Create("\n"));
+  }
   return 0;
 }

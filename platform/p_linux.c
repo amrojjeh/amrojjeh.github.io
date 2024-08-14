@@ -12,7 +12,7 @@
 
 #include "platform.h"
 
-static alloc allocator;
+static p_alloc allocator;
 static const char* NOT_INITIALIZED = "ERROR: memory was not initialized\n";
 
 size_t strlen(const char* c_str) {
@@ -29,7 +29,12 @@ void panic(const char* error_msg) {
   exit(1);
 }
 
-void Platform_Mem_Init(size_t bytes) {
+// NOTE: First kb of memory will be allocated to the stack
+void P_Mem_Init(size_t bytes) {
+  if (bytes < KB(2)) {
+    panic("ERROR: not enough space");
+  }
+
   void *buffer = mmap(NULL, bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
   if (buffer == MAP_FAILED) {
     panic("ERROR: could not initialize memory\n");
@@ -37,40 +42,59 @@ void Platform_Mem_Init(size_t bytes) {
 
   allocator.buffer = buffer;
   allocator.capacity = bytes;
-  allocator.length = 0;
+  P_Mem_Reset();
 }
 
-void Platform_Mem_Reset() {
-  allocator.length = 0;
+void P_Mem_Reset() {
+  allocator.table_ptr = allocator.buffer;
+  allocator.body_ptr = allocator.buffer + KB(1);
 }
 
-void* Platform_Mem_Seek() {
-  return allocator.buffer + allocator.length;
+size_t P_Mem_Available() {
+  return (void*)allocator.body_ptr - (void*)allocator.table_ptr;
 }
 
-size_t Platform_Mem_Available() {
-  return allocator.capacity - allocator.length;
-}
-
-int Platform_Mem_HasInit() {
+int P_Mem_HasInit() {
   return allocator.buffer != NULL;
 }
 
-size_t Platform_Mem_Write(string str) {
-  if (Platform_Mem_Available() < str.length) {
+p_string *P_Mem_PushString(p_string str) {
+  if (P_Mem_Available() < str.length) {
     panic("ERROR: not enough memory to write string");
   }
 
   // NOTE: does not write null terminator
+  char *start = allocator.body_ptr;
   for (size_t x = 0; x < str.length; ++x) {
-    *((char*)(Platform_Mem_Seek())) = str.buffer[x];
-    allocator.length++;
+    *allocator.body_ptr = str.buffer[x];
+    allocator.body_ptr++;
   }
-  return str.length;
+  *allocator.table_ptr = P_String_CreateWithLength(start, allocator.body_ptr - start);
+  allocator.table_ptr++;
+  return allocator.table_ptr-1;
 }
 
-string Platform_IO_ListDirectory(string directory) {
-  if (!Platform_Mem_HasInit()) {
+p_string *P_Mem_ExpandString(p_string str) {
+  if (P_Mem_Available() < str.length) {
+    panic("ERROR: not enough memory to write string");
+  }
+
+  for (size_t x = 0; x < str.length; ++x) {
+    *allocator.body_ptr = str.buffer[x];
+    allocator.body_ptr++;
+  }
+
+  (allocator.table_ptr-1)->length += str.length;
+  return allocator.table_ptr-1;
+}
+
+void P_Mem_PopString() {
+  allocator.body_ptr = allocator.table_ptr->buffer;
+  allocator.table_ptr--;
+}
+
+p_slice P_IO_ListDirectory(p_string directory) {
+  if (!P_Mem_HasInit()) {
     panic(NOT_INITIALIZED);
   }
   DIR *dir = opendir(directory.buffer);
@@ -83,8 +107,9 @@ string Platform_IO_ListDirectory(string directory) {
   struct dirent *entry;
   struct stat file_stat;
 
-  char *start = Platform_Mem_Seek();
+  char *start = allocator.body_ptr;
   size_t output_length = 0;
+  p_slice slice = {NULL, 0};
   while ((entry = readdir(dir)) != NULL) {
     // NOTE: skip hidden files
     if (entry->d_name[0] == '.') {
@@ -97,12 +122,16 @@ string Platform_IO_ListDirectory(string directory) {
       panic("ERROR: could not fetch stats of a file\n");
     };
 
-    string name = Platform_String_Create(entry->d_name);
-    output_length += Platform_Mem_Write(name);
+    p_string *name = P_Mem_PushString(P_String_Create(entry->d_name));
     if ((file_stat.st_mode & S_IFMT) == S_IFDIR) {
-      output_length += Platform_Mem_Write(Platform_String_Create("/"));
+      P_Mem_ExpandString(P_String_Create("/"));
     }
-    output_length += Platform_Mem_Write(Platform_String_Create(";"));
+
+    if (slice.base == NULL) {
+      slice.base = name;
+    }
+
+    slice.length++;
   }
 
   if (errno != 0) {
@@ -113,17 +142,17 @@ string Platform_IO_ListDirectory(string directory) {
     panic("ERROR: could not close directory\n");
   };
 
-  return Platform_String_CreateWithLength(start, output_length);
+  return slice;
 }
 
-string Platform_IO_ReadFile(string file_name) {
-  string ret;
+p_string Platform_IO_ReadFile(p_string file_name) {
+  p_string ret;
   if (allocator.buffer == NULL) {
     panic(NOT_INITIALIZED);
   }
 
   int fd = open(file_name.buffer, O_RDONLY);
-  ssize_t length = read(fd, Platform_Mem_Seek(), Platform_Mem_Available());
+  ssize_t length = read(fd, allocator.body_ptr, P_Mem_Available());
   if (length == -1) {
     panic("ERROR: could not read file\n");
   }
@@ -131,26 +160,26 @@ string Platform_IO_ReadFile(string file_name) {
     panic("ERROR: the file was too big to read\n");
   }
 
-  allocator.length = length;
+  // allocator.length = length;
 
   ret.buffer = allocator.buffer;
-  ret.length = allocator.length;
+  // ret.length = allocator.length;
   return ret;
 }
 
-void Platform_IO_PrintString(string str) {
+void P_IO_PrintString(p_string str) {
   for (size_t x = 0; x < str.length; ++x) {
     putchar(str.buffer[x]);
   }
 }
 
-string Platform_String_Create(const char* c_str) {
-  string ret = {c_str, strlen(c_str)};
+p_string P_String_Create(char* c_str) {
+  p_string ret = {c_str, strlen(c_str)};
   return ret;
 }
 
-string Platform_String_CreateWithLength(char* c_str, size_t len) {
-  string ret = {c_str, len};
+p_string P_String_CreateWithLength(char* c_str, size_t len) {
+  p_string ret = {c_str, len};
   return ret;
 }
 

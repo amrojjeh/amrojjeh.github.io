@@ -7,32 +7,39 @@
 // TYPES
 
 typedef struct {
-  const char* buffer;
+  char* buffer;
   size_t length;
-} string;
+} p_string;
 
 typedef struct {
   void *buffer;
-  size_t length;
+  p_string *table_ptr;
+  char *body_ptr;
   size_t capacity;
-} alloc;
+} p_alloc;
+
+typedef struct {
+  p_string *base;
+  size_t length;
+} p_slice;
 
 // === FILE IO ===
-extern string Platform_IO_ListDirectory(string directory);
-extern string Platform_IO_ReadFile(string file_name);
-extern void Platform_IO_PrintString(string str);
+extern p_slice P_IO_ListDirectory(p_string directory);
+extern p_string P_IO_ReadFile(p_string file_name);
+extern void P_IO_PrintString(p_string str);
 
 // === STRING ===
-extern string Platform_String_Create(const char* c_str);
-extern string Platform_String_CreateWithLength(char* c_str, size_t len);
+extern p_string P_String_Create(char* c_str);
+extern p_string P_String_CreateWithLength(char* c_str, size_t len);
 
 // === MEMORY ===
-extern void Platform_Mem_Init(size_t bytes);
-extern int Platform_Mem_HasInit();
-extern void Platform_Mem_Reset();
-extern void* Platform_Mem_Seek();
-extern size_t Platform_Mem_Available();
-extern size_t Platform_Mem_Write(string str);
+extern void P_Mem_Init(size_t bytes);
+extern int P_Mem_HasInit();
+extern void P_Mem_Reset();
+extern size_t P_Mem_Available();
+extern p_string *P_Mem_PushString(p_string str);
+extern p_string *P_Mem_ExpandString(p_string str);
+extern void P_Mem_PopString();
 
 // IDEA: Use a stack allocation so I can allocate a bunch of things and free the last chunk all at once
 // NOTE: Not all these functions need to be exposted. I should make a p_internal.h
