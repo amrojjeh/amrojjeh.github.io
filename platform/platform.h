@@ -25,7 +25,7 @@ typedef struct {
 
 // === FILE IO ===
 extern p_slice P_IO_ListDirectory(p_string directory);
-extern p_string P_IO_ReadFile(p_string file_name);
+extern p_string *P_IO_ReadFile(p_string file_name);
 extern void P_IO_PrintString(p_string str);
 
 // === STRING ===
@@ -39,7 +39,7 @@ extern void P_Mem_Reset();
 extern size_t P_Mem_Available();
 extern p_string *P_Mem_PushString(p_string str);
 extern p_string *P_Mem_ExpandString(p_string str);
-extern void P_Mem_PopString();
+extern p_string *P_Mem_PopString();
 
-// IDEA: Use a stack allocation so I can allocate a bunch of things and free the last chunk all at once
-// NOTE: Not all these functions need to be exposted. I should make a p_internal.h
+// === MARKDOWN ===
+extern p_string *P_Markdown_Parse(p_string file_name);

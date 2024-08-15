@@ -88,9 +88,10 @@ p_string *P_Mem_ExpandString(p_string str) {
   return allocator.table_ptr-1;
 }
 
-void P_Mem_PopString() {
+p_string *P_Mem_PopString() {
   allocator.table_ptr--;
   allocator.body_ptr = allocator.table_ptr->buffer;
+  return NULL;
 }
 
 p_slice P_IO_ListDirectory(p_string directory) {
@@ -145,7 +146,7 @@ p_slice P_IO_ListDirectory(p_string directory) {
   return slice;
 }
 
-p_string Platform_IO_ReadFile(p_string file_name) {
+p_string *P_IO_ReadFile(p_string file_name) {
   p_string ret;
   if (allocator.buffer == NULL) {
     panic(NOT_INITIALIZED);
@@ -160,11 +161,12 @@ p_string Platform_IO_ReadFile(p_string file_name) {
     panic("ERROR: the file was too big to read\n");
   }
 
-  // allocator.length = length;
+  ret = P_String_CreateWithLength(allocator.body_ptr, length);
+  allocator.body_ptr += length;
+  *allocator.table_ptr = ret;
+  allocator.table_ptr++;
 
-  ret.buffer = allocator.buffer;
-  // ret.length = allocator.length;
-  return ret;
+  return allocator.table_ptr - 1;
 }
 
 void P_IO_PrintString(p_string str) {
