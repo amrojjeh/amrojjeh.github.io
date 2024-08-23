@@ -1,10 +1,7 @@
----
-  title: "Test"
-  description: "This is a test description"
----
+# This is a title
 
-# Test Header
+This is some text with a *bold* word
 
-Some **kind** of *paragraph*
+This is another piece of text, but with _italics_ instead.
 
-## Another header
+Sometimes they can be _friends_ *together* _*:)*_
