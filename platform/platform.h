@@ -39,6 +39,7 @@ extern void P_Mem_Reset();
 extern size_t P_Mem_Available();
 extern p_string *P_Mem_PushString(p_string str);
 extern p_string *P_Mem_ExpandString(p_string str);
+extern p_string *P_Mem_ExpandStringC(char c);
 extern p_string *P_Mem_PopString();
 
 // === MARKDOWN ===

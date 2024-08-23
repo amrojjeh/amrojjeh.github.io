@@ -88,6 +88,18 @@ p_string *P_Mem_ExpandString(p_string str) {
   return allocator.table_ptr-1;
 }
 
+p_string *P_Mem_ExpandStringC(char c) {
+  if (P_Mem_Available() == 0) {
+    panic("ERROR: not enough memory to write string");
+  }
+
+  *allocator.body_ptr = c;
+  allocator.body_ptr++;
+
+  (allocator.table_ptr-1)->length += 1;
+  return allocator.table_ptr-1;
+}
+
 p_string *P_Mem_PopString() {
   allocator.table_ptr--;
   allocator.body_ptr = allocator.table_ptr->buffer;

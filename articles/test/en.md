@@ -1,4 +1,7 @@
-# This is a title
+A test article
+September 2nd, 2002
+
+### This is a title
 
 This is some text with a *bold* word
 
