@@ -12,6 +12,8 @@
 
 #include "platform.h"
 
+#define PANIC(x) panic(x, __FILE__, __LINE__);
+
 static p_alloc allocator;
 static const char* NOT_INITIALIZED = "ERROR: memory was not initialized\n";
 
@@ -24,20 +26,20 @@ size_t strlen(const char* c_str) {
   return len;
 }
 
-void panic(const char* error_msg) {
-  printf("%s", error_msg);
+void panic(const char* error_msg, char *_filename, int _fileline) {
+  printf("%s:%d: %s", _filename, _fileline, error_msg);
   exit(1);
 }
 
 // NOTE: First kb of memory will be allocated to the stack
 void P_Mem_Init(size_t bytes) {
   if (bytes < KB(2)) {
-    panic("ERROR: not enough space");
+    PANIC("ERROR: not enough space\n");
   }
 
   void *buffer = mmap(NULL, bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
   if (buffer == MAP_FAILED) {
-    panic("ERROR: could not initialize memory\n");
+    PANIC("ERROR: could not initialize memory\n");
   }
 
   allocator.buffer = buffer;
@@ -58,9 +60,9 @@ int P_Mem_HasInit() {
   return allocator.buffer != NULL;
 }
 
-p_string *P_Mem_PushString(p_string str) {
+p_string *_P_Mem_PushString(p_string str, char* _filename, int _line) {
   if (P_Mem_Available() < str.length) {
-    panic("ERROR: not enough memory to write string");
+    panic("ERROR: not enough memory to write string\n", _filename, _line);
   }
 
   // NOTE: does not write null terminator
@@ -74,9 +76,9 @@ p_string *P_Mem_PushString(p_string str) {
   return allocator.table_ptr-1;
 }
 
-p_string *P_Mem_ExpandString(p_string str) {
+p_string *_P_Mem_ExpandString(p_string str, char *file_name, int file_line) {
   if (P_Mem_Available() < str.length) {
-    panic("ERROR: not enough memory to write string");
+    panic("ERROR: not enough memory to write string", file_name, file_line);
   }
 
   for (size_t x = 0; x < str.length; ++x) {
@@ -90,7 +92,7 @@ p_string *P_Mem_ExpandString(p_string str) {
 
 p_string *P_Mem_ExpandStringC(char c) {
   if (P_Mem_Available() == 0) {
-    panic("ERROR: not enough memory to write string");
+    PANIC("ERROR: not enough memory to write string");
   }
 
   *allocator.body_ptr = c;
@@ -108,12 +110,12 @@ p_string *P_Mem_PopString() {
 
 p_slice P_IO_ListDirectory(p_string directory) {
   if (!P_Mem_HasInit()) {
-    panic(NOT_INITIALIZED);
+    PANIC(NOT_INITIALIZED);
   }
   DIR *dir = opendir(directory.buffer);
   if (dir == NULL) {
     perror(__FILE__);
-    panic("ERROR: could not open directory\n");
+    PANIC("ERROR: could not open directory\n");
   }
 
   errno = 0;
@@ -124,18 +126,22 @@ p_slice P_IO_ListDirectory(p_string directory) {
   size_t output_length = 0;
   p_slice slice = {NULL, 0};
   while ((entry = readdir(dir)) != NULL) {
-    // NOTE: skip hidden files
+    // NOTE(Amr Ojjeh): skip hidden files
     if (entry->d_name[0] == '.') {
       continue;
     }
 
-    if (stat(entry->d_name, &file_stat) == -1) {
+    p_string *name = P_Mem_PushString(directory);
+    P_Mem_ExpandString(P_String_Create("/"));
+    P_Mem_ExpandString(P_String_Create(entry->d_name));
+    P_Mem_ExpandStringC('\0');
+
+    if (stat(name->buffer, &file_stat) == -1) {
       perror(__FILE__);
       printf("%s\n", entry->d_name);
-      panic("ERROR: could not fetch stats of a file\n");
+      PANIC("ERROR: could not fetch stats of a file\n");
     };
 
-    p_string *name = P_Mem_PushString(P_String_Create(entry->d_name));
     if ((file_stat.st_mode & S_IFMT) == S_IFDIR) {
       P_Mem_ExpandString(P_String_Create("/"));
     }
@@ -148,11 +154,11 @@ p_slice P_IO_ListDirectory(p_string directory) {
   }
 
   if (errno != 0) {
-    panic("ERROR: failed to list directories\n");
+    PANIC("ERROR: failed to list directories\n");
   }
 
   if (closedir(dir) == -1) {
-    panic("ERROR: could not close directory\n");
+    PANIC("ERROR: could not close directory\n");
   };
 
   return slice;
@@ -161,24 +167,44 @@ p_slice P_IO_ListDirectory(p_string directory) {
 p_string *P_IO_ReadFile(p_string file_name) {
   p_string ret;
   if (allocator.buffer == NULL) {
-    panic(NOT_INITIALIZED);
+    PANIC(NOT_INITIALIZED);
   }
 
   int fd = open(file_name.buffer, O_RDONLY);
   ssize_t length = read(fd, allocator.body_ptr, P_Mem_Available());
+  ssize_t totalRead = length;
   if (length == -1) {
-    panic("ERROR: could not read file\n");
+    P_IO_PrintString(file_name);
+    printf("\n");
+    PANIC("ERROR: could not read file\n");
   }
-  if (length > SSIZE_MAX || length >= allocator.capacity) {
-    panic("ERROR: the file was too big to read\n");
+  
+  while (length != 0) {
+    length = read(fd, allocator.body_ptr+totalRead, P_Mem_Available());
+    totalRead += length;
   }
 
-  ret = P_String_CreateWithLength(allocator.body_ptr, length);
-  allocator.body_ptr += length;
+  if (length > SSIZE_MAX || length >= allocator.capacity) {
+    PANIC("ERROR: the file was too big to read\n");
+  }
+
+  ret = P_String_CreateWithLength(allocator.body_ptr, totalRead);
+  allocator.body_ptr += totalRead;
   *allocator.table_ptr = ret;
   allocator.table_ptr++;
 
   return allocator.table_ptr - 1;
+}
+
+void P_IO_WriteFile(p_string file_name, p_string content) {
+  int fd = open(file_name.buffer, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR);
+  ssize_t length = write(fd, content.buffer, content.length);
+  if (length == -1) {
+    P_IO_PrintString(file_name);
+    printf("\n");
+    PANIC("ERROR: could not write file\n");
+  }
+  close(fd);
 }
 
 void P_IO_PrintString(p_string str) {

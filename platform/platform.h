@@ -4,6 +4,9 @@
 #define KB(x) ((size_t)(x << 10))
 #define MB(x) ((size_t)(x << 20))
 
+#define P_Mem_PushString(str)   _P_Mem_PushString(str, __FILE__, __LINE__);
+#define P_Mem_ExpandString(str) _P_Mem_ExpandString(str, __FILE__, __LINE__);
+
 // TYPES
 
 typedef struct {
@@ -26,6 +29,7 @@ typedef struct {
 // === FILE IO ===
 extern p_slice P_IO_ListDirectory(p_string directory);
 extern p_string *P_IO_ReadFile(p_string file_name);
+extern void P_IO_WriteFile(p_string file_name, p_string content);
 extern void P_IO_PrintString(p_string str);
 
 // === STRING ===
@@ -37,8 +41,8 @@ extern void P_Mem_Init(size_t bytes);
 extern int P_Mem_HasInit();
 extern void P_Mem_Reset();
 extern size_t P_Mem_Available();
-extern p_string *P_Mem_PushString(p_string str);
-extern p_string *P_Mem_ExpandString(p_string str);
+extern p_string *_P_Mem_PushString(p_string str, char * file_name, int file_line);
+extern p_string *_P_Mem_ExpandString(p_string str, char *file_name, int file_line);
 extern p_string *P_Mem_ExpandStringC(char c);
 extern p_string *P_Mem_PopString();
 

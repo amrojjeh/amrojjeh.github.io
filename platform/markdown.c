@@ -42,31 +42,32 @@ p_string P_Markdown_Italics(p_string slice, int parseBold) {
   P_Mem_ExpandString(P_String_Create("<em>"));
 
   // skip _
-  slice.buffer += 1;
-  slice.length -= 1;
-  size_t read = 0;
+  slice.buffer++;
+  slice.length--;
 
-  while (slice.buffer[read] != '_') {
-    if (slice.buffer[read] == '*' && parseBold) {
-      p_string read_str = {slice.buffer, read};
+  p_string read_str = {slice.buffer, 0};
+
+  while (*slice.buffer != '_') {
+    if (*slice.buffer == '*' && parseBold) {
       P_Mem_ExpandString(read_str);
-      slice.buffer += read;
-      slice.length -= read;
       slice = P_Markdown_Bold(slice, PARSE_NONE);
-      read = 0;
+      read_str.buffer = slice.buffer;
+      read_str.length = 0;
     } else {
-      read++;
+      slice.buffer++;
+      slice.length--;
+      read_str.length++;
     }
   }
 
-  read++;
-
-  p_string read_str = {slice.buffer, read-1};
   P_Mem_ExpandString(read_str);
   P_Mem_ExpandString(P_String_Create("</em>"));
 
-  p_string rem = {slice.buffer + read, slice.length - read};
-  return rem;
+  // skip the other _
+  slice.buffer++;
+  slice.length--;
+
+  return slice;
 }
 
 p_string P_Markdown_Paragraph(p_string slice) {
@@ -173,8 +174,7 @@ p_string P_Markdown_Date(p_string slice) {
   return slice;
 }
 
-p_string *P_Markdown_Parse(p_string file_name) {
-  p_string content = *P_IO_ReadFile(file_name);
+p_string *P_Markdown_Parse(p_string content) {
   p_string *html = P_Mem_PushString(P_String_Create("<!doctype><html><body>"));
 
   // first two lines have to be title and date
