@@ -1,8 +1,6 @@
 Robert's Crisis
 August 24, 2024
 
-# Robert's Crisis
-
 Robert has an illness. It's not a traditional illness, but the kind that becomes one once you merely think it is one. Therefore, he had a very special illness: he was stuck in a loop.
 
 It was not a spiral, as that at least makes progress towards the center, even if you could say its goal was misguided. On the other hand, a loop has no goal, and it makes no progress. It is a repeat of the same old same old.

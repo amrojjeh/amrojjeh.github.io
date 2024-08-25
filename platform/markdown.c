@@ -175,11 +175,12 @@ p_string P_Markdown_Date(p_string slice) {
 }
 
 p_string *P_Markdown_Parse(p_string content) {
-  p_string *html = P_Mem_PushString(P_String_Create("<!doctype><html><body>"));
+  p_string *html = P_Mem_PushString(P_String_Create("<!doctype><html><head><link rel=\"stylesheet\" href=\"main.css\"></head><body>"));
 
   // first two lines have to be title and date
   content = P_Markdown_Title(content);
   content = P_Markdown_Date(content);
+  P_Mem_ExpandString(P_String_Create("<a class=\"author\" href=\"https://github.com/amrojjeh/\">Amr Ojjeh</a>"));
 
   while (content.length > 1) {
     if (*content.buffer == '\n') {

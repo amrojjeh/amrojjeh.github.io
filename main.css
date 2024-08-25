@@ -1,0 +1,30 @@
+body {
+  font-family: 'Arial';
+  font-size: 1.1rem;
+  padding-inline: 2rem;
+  background-color: #ddd;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 0;
+}
+
+.date {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.author {
+  text-align: center;
+  font-size: 1rem;
+  display: block;
+  text-decoration: none;
+}
+
+.author:visited {
+  color: currentcolor;
+}
